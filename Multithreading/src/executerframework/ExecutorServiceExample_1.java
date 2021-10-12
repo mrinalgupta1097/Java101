@@ -3,7 +3,7 @@ package executerframework;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ExecutorServiceExample {
+public class ExecutorServiceExample_1 {
   public static void main(String[] args) {
     /*
      * An Executor that provides methods to manage termination

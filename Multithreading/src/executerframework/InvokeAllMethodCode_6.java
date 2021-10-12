@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class InvokeAllMethodCode {
+public class InvokeAllMethodCode_6 {
   public static void main(String[] args) {
     //
     ExecutorService executorService = Executors.newFixedThreadPool(3);

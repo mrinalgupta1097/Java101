@@ -2,7 +2,7 @@ package executerframework;
 
 import java.util.concurrent.*;
 
-public class ExecutorServiceImplementationsDemo {
+public class ExecutorServiceImplementationsDemo_2 {
   /*Executor Service is an interface ie you have to create an object
    * of the class that implements it.
    * Java provides two built in implementations

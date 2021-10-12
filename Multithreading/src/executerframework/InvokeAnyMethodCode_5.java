@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class InvokeAnyMethodCode {
+public class InvokeAnyMethodCode_5 {
   public static void main(String[] args) {
     //
     ExecutorService executorService = Executors.newFixedThreadPool(3);
