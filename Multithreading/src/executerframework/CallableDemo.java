@@ -11,7 +11,7 @@ public class CallableDemo {
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 /*
 * submit() also takes callable and returns a future object*/
-    Future future =
+    Future<?> future =
         executorService.submit(
             () -> System.out.println(Thread.currentThread().getName() + " : Task1.2"));
 
@@ -20,9 +20,7 @@ public class CallableDemo {
     try{
       String result = (String) future.get();
       System.out.println(result);
-    } catch (ExecutionException e) {
-      e.printStackTrace();
-    } catch (InterruptedException e) {
+    } catch (ExecutionException | InterruptedException e) {
       e.printStackTrace();
     }
     System.out.println(future.isDone());

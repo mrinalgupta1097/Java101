@@ -23,7 +23,7 @@ public class ExecutorServiceMethodsDemo {
 
     //   submit() method - Submits a Runnable task for execution and returns a Future representing
     // that task. The Future's get method will return null upon successful completion.
-    Future future =
+    Future<?> future =
         executorService.submit(
             () -> System.out.println(Thread.currentThread().getName() + " : Task1.1"));
 
@@ -37,9 +37,7 @@ public class ExecutorServiceMethodsDemo {
 
     try {
       future.get(); // get() method returns null if the task is in progress state
-    } catch (InterruptedException e) {
-      System.out.println(e.getMessage());
-    } catch (ExecutionException e) {
+    } catch (InterruptedException | ExecutionException e) {
       System.out.println(e.getMessage());
     }
 
