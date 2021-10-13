@@ -21,8 +21,11 @@ public class StreamDemo {
     Map<Integer, List<EmployeeHelper>> empDetailsBasedOnDept =
         empList.stream()
             .collect(Collectors.groupingBy(EmployeeHelper::getDeptID, Collectors.toList()));
-    empDetailsBasedOnDept
-            .forEach((key, value) -> System.out.println(
-                    key + " : " + value));
+    empDetailsBasedOnDept.forEach((key, value) -> System.out.println(key + " : " + value));
+
+//    count of employees based on department
+    Map<Integer, Long> empDetailsCountDept =
+        empList.stream()
+            .collect(Collectors.groupingBy(EmployeeHelper::getDeptID, Collectors.counting()));
   }
 }
