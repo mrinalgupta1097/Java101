@@ -3,7 +3,7 @@ package Creational;
 public class FactoryDesignPattern {
   /*About :
    * 1. Creational design Pattern
-   * 2.Used when we have multiple sub classes of a super class and
+   * 2.Used when we have multiple sub-classes of a super class and
    *   based on input we want to return one class instance
    * 3. Provides abstraction between implementation and client classes.
    * 4. Removes the instantiation of client classes from client code. */
@@ -12,6 +12,7 @@ public class FactoryDesignPattern {
    * 1. Superclass can be an interface, abstract class or basic class.
    * 2. Factory class has a static method
    *   which returns the instance of sub-class based on input.*/
+
   public static void main(String[] args) {
     //
     Vehicle car = VehicleFactory.getInstance("car", 4);
