@@ -17,15 +17,24 @@ public class StreamDemo {
     empList.add(new EmployeeHelper(106, "Samyak", 1, "active", 6000));
     empList.add(new EmployeeHelper(107, "Madhav", 4, "active", 2000));
 
-    //    tp print emp details based on dept
+    //    to print emp details based on dept
     Map<Integer, List<EmployeeHelper>> empDetailsBasedOnDept =
         empList.stream()
             .collect(Collectors.groupingBy(EmployeeHelper::getDeptID, Collectors.toList()));
     empDetailsBasedOnDept.forEach((key, value) -> System.out.println(key + " : " + value));
 
-//    count of employees based on department
+    //    count of employees based on department.
     Map<Integer, Long> empDetailsCountDept =
         empList.stream()
             .collect(Collectors.groupingBy(EmployeeHelper::getDeptID, Collectors.counting()));
+    empDetailsCountDept.forEach((key, value) -> System.out.println("dept " + key + ": " + value));
+
+    //    to print active/inactive employees
+    long activeCount = empList.stream().filter(emp -> "active".equals(emp.getStatus())).count();
+    long inactiveCount = empList.stream().filter(emp -> "inactive".equals(emp.getStatus())).count();
+    System.out.println("active : " + activeCount + ", inactive : " + inactiveCount);
+
+//    details of employee getting maximum salary
+
   }
 }
