@@ -1,5 +1,6 @@
 package Streams.Collectors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectorsDemo {
@@ -43,6 +44,20 @@ public class CollectorsDemo {
      *     like individual age to sum
      * 2. converts a stream to something concrete
      *     like Collection of people to collection of age(collect function)
+     */
+    System.out.println("\n............names in uppercase with condition........");
+    List<String> namesOlderThan30 = new ArrayList<>();
+
+    //    Don't do this
+    createPeople().stream()
+        .filter(person -> person.getAge() > 30)
+        .map(Person::getName)
+        .map(String::toUpperCase)
+        .forEach(name -> namesOlderThan30.add(name));
+    /*
+     * forEach() mutates the list so if you need to make this parallel
+     * this will entail race condition. Remember you don't want to avoid
+     * mutability we want to avoid shared mutability.
      */
 
   }
