@@ -1,18 +1,23 @@
 package Streams.Collectors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
 
 public class CollectorsDemo {
   public static List<Person> createPeople() {
     return List.of(
         new Person("Sara", 20),
-        new Person("Sara", 22),
+        new Person("Nancy", 22),
         new Person("Bob", 20),
         new Person("Paula", 32),
         new Person("Paul", 32),
         new Person("Jack", 3),
-        new Person("Jack", 72),
+        new Person("Bill", 72),
         new Person("Jill", 11));
   }
 
@@ -45,7 +50,8 @@ public class CollectorsDemo {
      * 2. converts a stream to something concrete
      *     like Collection of people to collection of age(collect function)
      */
-    System.out.println("\n............names in uppercase with condition(Shared Mutability Condition)........");
+    System.out.println(
+        "\n............names in uppercase with condition(Shared Mutability Condition)........");
     List<String> namesOlderThan30 = new ArrayList<>();
 
     //    Don't do this
@@ -60,21 +66,40 @@ public class CollectorsDemo {
      * this will entail race condition. Remember you don't want to avoid
      * mutability we want to avoid shared mutability.
      */
-    System.out.println("\n............names in uppercase with condition(Shared Mutability Condition Solution)........");
+    System.out.println(
+        "\n............names in uppercase with condition(Shared Mutability Condition Solution)........");
     createPeople().stream()
-            .filter(person -> person.getAge() > 30)
-            .map(Person::getName)
-            .map(String::toUpperCase)
-            .reduce(new ArrayList<String>(),
-                    (names,name)-> {names.add(name);
-              return names;
-              },(names1,names2)->{
-              names1.addAll(names2);
-              return names2;
-                    });
+        .filter(person -> person.getAge() > 30)
+        .map(Person::getName)
+        .map(String::toUpperCase)
+        //        .reduce(
+        //            new ArrayList<String>(),
+        //            (names, name) -> {
+        //              names.add(name);
+        //              return names;
+        //            },
+        //            (names1, names2) -> {
+        //              names1.addAll(names2);
+        //              return names2;
+        //            });
+        .collect(Collectors.toList());
 
+    /*
+     * The above commented part is complex and prone to error.
+     * That is why we use collect(). It takes a collector
+     * which is a utility class that contains various collect methods
+     * and also takes of shared mutability.
+     */
+    System.out.println("\n............Map name as key and age as value(Imperative style)........");
 
+    Map<String, Integer> nameAndAge = new HashMap();
+    for (Person person : createPeople()) {
+      nameAndAge.put(person.getName(), person.getAge());
+    }
+    System.out.println(nameAndAge);
 
-
+    System.out.println(
+        "\n............Map name as key and age as value(using stream style)........");
+    System.out.println(createPeople().stream().collect(toMap(Person::getName, Person::getAge)));
   }
 }
