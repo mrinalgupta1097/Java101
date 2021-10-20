@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 public class CollectorsDemo {
@@ -82,7 +83,7 @@ public class CollectorsDemo {
         //              names1.addAll(names2);
         //              return names2;
         //            });
-        .collect(Collectors.toList());
+        .collect(toList());
 
     /*
      * The above commented part is complex and prone to error.
@@ -92,7 +93,7 @@ public class CollectorsDemo {
      */
     System.out.println("\n............Map name as key and age as value(Imperative style)........");
 
-    Map<String, Integer> nameAndAge = new HashMap();
+    Map<String, Integer> nameAndAge = new HashMap<>();
     for (Person person : createPeople()) {
       nameAndAge.put(person.getName(), person.getAge());
     }
@@ -101,5 +102,20 @@ public class CollectorsDemo {
     System.out.println(
         "\n............Map name as key and age as value(using stream style)........");
     System.out.println(createPeople().stream().collect(toMap(Person::getName, Person::getAge)));
+    System.out.println("\n............get the list of ages........");
+    var ages =
+        createPeople().stream()
+            .map(Person::getAge)
+            //            .collect(toList());
+            .collect(Collectors.toUnmodifiableList());
+
+    //    ages.add(99);
+    System.out.println(ages);
+    System.out.println(ages.getClass());
+
+    /*The above obtained list from stream is an arrayList.
+     * That arrayList is modifiable as well as we see with add operation
+     * to avoid that we use toUnmodifiableList().
+     * If you run the line 113 you will get UnsupportedOperationException. */
   }
 }
