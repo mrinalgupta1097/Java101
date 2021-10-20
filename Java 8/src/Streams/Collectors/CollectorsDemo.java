@@ -45,7 +45,7 @@ public class CollectorsDemo {
      * 2. converts a stream to something concrete
      *     like Collection of people to collection of age(collect function)
      */
-    System.out.println("\n............names in uppercase with condition........");
+    System.out.println("\n............names in uppercase with condition(Shared Mutability Condition)........");
     List<String> namesOlderThan30 = new ArrayList<>();
 
     //    Don't do this
@@ -53,12 +53,28 @@ public class CollectorsDemo {
         .filter(person -> person.getAge() > 30)
         .map(Person::getName)
         .map(String::toUpperCase)
-        .forEach(name -> namesOlderThan30.add(name));
+        .forEach(namesOlderThan30::add);
+    System.out.println(namesOlderThan30);
     /*
      * forEach() mutates the list so if you need to make this parallel
      * this will entail race condition. Remember you don't want to avoid
      * mutability we want to avoid shared mutability.
      */
+    System.out.println("\n............names in uppercase with condition(Shared Mutability Condition Solution)........");
+    createPeople().stream()
+            .filter(person -> person.getAge() > 30)
+            .map(Person::getName)
+            .map(String::toUpperCase)
+            .reduce(new ArrayList<String>(),
+                    (names,name)-> {names.add(name);
+              return names;
+              },(names1,names2)->{
+              names1.addAll(names2);
+              return names2;
+                    });
+
+
+
 
   }
 }
